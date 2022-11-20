@@ -1,53 +1,83 @@
 const todoList = () => {
-  all = [];
-  const add = (todoItem) => {
-    all.push(todoItem);
-  };
-  const markAsComplete = (index) => {
-    all[index].completed = true;
-  };
-
-  let today = new Date().toISOString().split("T")[0];
-
-  const overdue = () => {
-    return all.filter((todo) => {
-      return todo.dueDate < today;
-    });
-  };
-
-  const dueToday = () => {
-    return all.filter((todo) => {
-      return todo.dueDate === today;
-    });
-  };
-
-  const dueLater = () => {
-    return all.filter((todo) => {
-      return todo.dueDate > today;
-    });
-  };
-
-  const toDisplayableList = (list) => {
-    return list
-      .map((todo) => {
-        display_status = todo.completed ? "[x]" : "[ ]";
-        display_date = todo.dueDate == today ? "" : todo.dueDate;
-
-        return `${display_status} ${todo.title} ${display_date}`;
+    all = []
+    const add = (todoItem) => {
+      all.push(todoItem)
+    }
+    const markAsComplete = (index) => {
+      all[index].completed = true
+    }
+  
+    const overdue = () => {
+      // Write the date check condition here and return the array of overdue items accordingly.
+      // FILL YOUR CODE HERE
+      overdue_arr = []
+      all.forEach(x => {
+        if(x["dueDate"] === yesterday)
+        {
+          overdue_arr.push(x);
+        }
+      });
+      return overdue_arr;
+    }
+  
+    const dueToday = () => {
+      // Write the date check condition here and return the array of todo items that are due today accordingly.
+      // FILL YOUR CODE HERE
+      duetoday_arr = []
+      all.forEach((x) => {
+        if(x["dueDate"] === today)
+        {
+          duetoday_arr.push(x);
+        }
+      });
+      return duetoday_arr;
+    }
+  
+    const dueLater = () => {
+      // Write the date check condition here and return the array of todo items that are due later accordingly.
+      // FILL YOUR CODE HERE
+      duelater_arr = []
+      all.forEach((x) => {
+        if(x["dueDate"] === tomorrow )
+        {
+          duelater_arr.push(x);
+        }
+      });
+      return duelater_arr;
+    }
+  
+    const toDisplayableList = (list) => {
+      // Format the To-Do list here, and return the output string as per the format given above.
+      // FILL YOUR CODE HERE
+      // return OUTPUT_STRING
+      display = [];
+      list.forEach((item) =>{
+          if(item.completed === false)
+            {
+              if(item.dueDate === today)
+              {
+                display.push(`[ ] ${item.title}`);
+              }
+              else{
+                display.push(`[ ] ${item.title} ${item.dueDate}`);
+              }
+            }
+            else{
+              if(item.dueDate === today){
+                display.push(`[x] ${item.title}`);
+              }
+              else{
+                display.push(`[ ] ${item.title} ${item.dueDate}`);
+              }
+            }
       })
-      .join("\n");
-  };
+      return display.join("\n");
 
-  return {
-    all,
-    add,
-    markAsComplete,
-    overdue,
-    dueToday,
-    dueLater,
-    toDisplayableList,
-  };
-};
+    }
+  
+    return { all, add, markAsComplete, overdue, dueToday, dueLater, toDisplayableList };
+  }
+  
 
 // ####################################### #
 // DO NOT CHANGE ANYTHING BELOW THIS LINE. #
